@@ -26,22 +26,21 @@ export const Header = () => {
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center gap-8 cursor-pointer" onClick={() => navigate("/")}>
           <h1 className="text-3xl font-bold tracking-tight">Sela</h1>
-          <p className="hidden md:block text-sm uppercase tracking-wide opacity-90">
-            Your Modern Marketplace
-          </p>
         </div>
         
         <div className="flex items-center gap-3">
+          {/* AI Assistant - Public Access */}
+          <Button 
+            variant="ghost" 
+            className="text-primary-foreground hover:bg-primary-foreground/10 gap-2"
+            onClick={() => navigate("/ai-assistant")}
+          >
+            <Sparkles className="h-4 w-4" />
+            <span className="hidden sm:inline">AI Assistant</span>
+          </Button>
+
           {user ? (
             <>
-              <Button 
-                variant="ghost" 
-                className="text-primary-foreground hover:bg-primary-foreground/10 hidden md:inline-flex"
-                onClick={() => navigate("/ai-assistant")}
-              >
-                <Sparkles className="h-4 w-4 mr-2" />
-                AI Assistant
-              </Button>
               <Button 
                 variant="ghost" 
                 className="text-primary-foreground hover:bg-primary-foreground/10"
