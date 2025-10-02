@@ -11,7 +11,7 @@ import {
 
 export const HeroSearch = () => {
   return (
-    <section className="relative bg-gradient-to-br from-primary via-primary to-purple-700 text-primary-foreground py-20 px-4 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-red-900 via-red-700 to-red-600 text-primary-foreground py-20 px-4 overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-3xl"></div>
