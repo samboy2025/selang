@@ -8,6 +8,8 @@ import Auth from "./pages/Auth";
 import ProductDetails from "./pages/ProductDetails";
 import Dashboard from "./pages/Dashboard";
 import Chat from "./pages/Chat";
+import SellerProfile from "./pages/SellerProfile";
+import AIAssistant from "./pages/AIAssistant";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +26,8 @@ const App = () => (
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/chat/:conversationId" element={<Chat />} />
+          <Route path="/seller/:sellerId" element={<SellerProfile />} />
+          <Route path="/ai-assistant" element={<AIAssistant />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

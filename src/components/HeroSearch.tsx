@@ -11,11 +11,20 @@ import {
 
 export const HeroSearch = () => {
   return (
-    <section className="bg-primary text-primary-foreground py-16 px-4">
-      <div className="container mx-auto max-w-3xl text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-8">
-          What are you looking for?
+    <section className="relative bg-gradient-to-br from-primary via-primary to-purple-700 text-primary-foreground py-20 px-4 overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-10 left-10 w-32 h-32 bg-white rounded-full blur-3xl"></div>
+        <div className="absolute bottom-10 right-10 w-40 h-40 bg-white rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="container mx-auto max-w-3xl text-center relative z-10">
+        <h2 className="text-4xl md:text-5xl font-bold mb-4">
+          Find Anything You Need
         </h2>
+        <p className="text-lg md:text-xl mb-8 opacity-90">
+          Discover amazing deals from trusted sellers
+        </p>
         
         <div className="flex flex-col md:flex-row gap-3">
           <Select defaultValue="all">

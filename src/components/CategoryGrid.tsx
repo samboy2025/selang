@@ -20,23 +20,40 @@ const categories = [
 
 export const CategoryGrid = () => {
   return (
-    <section className="py-8 px-4">
+    <section className="py-6 px-4 bg-secondary/30">
       <div className="container mx-auto">
-        <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-7 xl:grid-cols-10 gap-2">
-          {categories.map((category) => (
-            <Card 
-              key={category.name}
-              className={`${category.color} border-0 cursor-pointer transition-all hover:shadow-md group`}
-            >
-              <CardContent className="p-2 text-center">
-                <category.icon className="h-8 w-8 mx-auto mb-1 text-primary group-hover:scale-110 transition-transform" />
-                <h3 className="font-semibold text-xs mb-0.5 line-clamp-2">{category.name}</h3>
-                <p className="text-[10px] text-muted-foreground">{category.count}</p>
-              </CardContent>
-            </Card>
-          ))}
+        <h2 className="text-xl font-bold mb-4">Browse Categories</h2>
+        <div className="relative">
+          <div className="flex gap-3 overflow-x-auto pb-4 scrollbar-hide scroll-smooth snap-x snap-mandatory">
+            {categories.map((category) => (
+              <button
+                key={category.name}
+                className="flex-shrink-0 snap-start group"
+              >
+                <div className="flex flex-col items-center gap-2 px-4 py-3 rounded-xl bg-card hover:bg-primary hover:text-primary-foreground transition-all duration-300 min-w-[100px] shadow-sm hover:shadow-md border border-border hover:border-primary">
+                  <category.icon className="h-6 w-6 group-hover:scale-110 transition-transform" />
+                  <span className="font-medium text-xs text-center line-clamp-2 leading-tight">
+                    {category.name}
+                  </span>
+                  <span className="text-[10px] opacity-70">
+                    {category.count}
+                  </span>
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
+      
+      <style>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </section>
   );
 };
