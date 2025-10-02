@@ -29,7 +29,7 @@ const SellerProfile = () => {
   useEffect(() => {
     const fetchSellerData = async () => {
       // Fetch seller profile
-      const { data: profileData } = await supabase
+      const { data: profileData } = await (supabase as any)
         .from("profiles")
         .select("*")
         .eq("id", sellerId)
@@ -47,7 +47,7 @@ const SellerProfile = () => {
       setSeller(profileData);
 
       // Fetch seller's products
-      const { data: productsData } = await supabase
+      const { data: productsData } = await (supabase as any)
         .from("products")
         .select("*")
         .eq("seller_id", sellerId)

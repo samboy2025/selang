@@ -27,7 +27,7 @@ const Chat = () => {
 
   useEffect(() => {
     const fetchConversation = async () => {
-      const { data: convData, error } = await supabase
+      const { data: convData, error } = await (supabase as any)
         .from("conversations")
         .select(`
           *,
@@ -52,7 +52,7 @@ const Chat = () => {
     };
 
     const fetchMessages = async () => {
-      const { data: messagesData } = await supabase
+      const { data: messagesData } = await (supabase as any)
         .from("messages")
         .select(`
           *,
@@ -69,7 +69,7 @@ const Chat = () => {
     fetchMessages();
 
     // Subscribe to new messages
-    const channel = supabase
+    const channel = (supabase as any)
       .channel(`messages-${conversationId}`)
       .on(
         "postgres_changes",
@@ -79,8 +79,8 @@ const Chat = () => {
           table: "messages",
           filter: `conversation_id=eq.${conversationId}`,
         },
-        async (payload) => {
-          const { data: newMsg } = await supabase
+        async (payload: any) => {
+          const { data: newMsg } = await (supabase as any)
             .from("messages")
             .select(`*, sender:sender_id (*)`)
             .eq("id", payload.new.id)
@@ -109,7 +109,7 @@ const Chat = () => {
     e.preventDefault();
     if (!newMessage.trim() || !currentUser) return;
 
-    const { error } = await supabase.from("messages").insert({
+    const { error } = await (supabase as any).from("messages").insert({
       conversation_id: conversationId,
       sender_id: currentUser.id,
       content: newMessage.trim(),

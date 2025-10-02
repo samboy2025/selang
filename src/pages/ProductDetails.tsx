@@ -24,7 +24,7 @@ const ProductDetails = () => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const { data: productData, error } = await supabase
+      const { data: productData, error } = await (supabase as any)
         .from("products")
         .select(`
           *,
@@ -43,14 +43,16 @@ const ProductDetails = () => {
         return;
       }
 
-      setProduct(productData);
-      setSeller(productData.profiles);
-      
-      // Increment view count
-      await supabase
-        .from("products")
-        .update({ views_count: (productData.views_count || 0) + 1 })
-        .eq("id", id);
+      if (productData) {
+        setProduct(productData);
+        setSeller(productData.profiles);
+        
+        // Increment view count
+        await (supabase as any)
+          .from("products")
+          .update({ views_count: (productData.views_count || 0) + 1 })
+          .eq("id", id);
+      }
 
       setLoading(false);
     };
@@ -69,7 +71,7 @@ const ProductDetails = () => {
     }
 
     // Create or find conversation
-    const { data: existingConv } = await supabase
+    const { data: existingConv } = await (supabase as any)
       .from("conversations")
       .select("id")
       .eq("product_id", product.id)
@@ -77,10 +79,10 @@ const ProductDetails = () => {
       .eq("seller_id", product.seller_id)
       .maybeSingle();
 
-    if (existingConv) {
+    if (existingConv?.id) {
       navigate(`/chat/${existingConv.id}`);
     } else {
-      const { data: newConv, error } = await supabase
+      const { data: newConv, error } = await (supabase as any)
         .from("conversations")
         .insert({
           product_id: product.id,
@@ -99,7 +101,9 @@ const ProductDetails = () => {
         return;
       }
 
-      navigate(`/chat/${newConv.id}`);
+      if (newConv?.id) {
+        navigate(`/chat/${newConv.id}`);
+      }
     }
   };
 

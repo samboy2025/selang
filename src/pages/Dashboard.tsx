@@ -26,21 +26,21 @@ const Dashboard = () => {
 
       setUser(session.user);
 
-      const { data: profileData } = await supabase
+      const { data: profileData } = await (supabase as any)
         .from("profiles")
         .select("*")
         .eq("id", session.user.id)
         .single();
       setProfile(profileData);
 
-      const { data: productsData } = await supabase
+      const { data: productsData } = await (supabase as any)
         .from("products")
         .select("*")
         .eq("seller_id", session.user.id)
         .order("created_at", { ascending: false });
       setMyProducts(productsData || []);
 
-      const { data: convsData } = await supabase
+      const { data: convsData } = await (supabase as any)
         .from("conversations")
         .select(`
           *,
