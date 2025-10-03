@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 import { ProductCard } from "./ProductCard";
 
-const products = [
+const mockProducts = [
   {
     image: "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=400&q=80",
     price: "57,000,000",
@@ -102,6 +104,31 @@ const products = [
 ];
 
 export const TrendingAds = () => {
+  const [products, setProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const { data } = await (supabase as any)
+        .from("products")
+        .select("*")
+        .eq("approval_status", "approved")
+        .order("views_count", { ascending: false })
+        .limit(8);
+      
+      setProducts(data && data.length > 0 ? data : mockProducts);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setProducts(mockProducts);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <section className="py-12 px-4 bg-background">
       <div className="container mx-auto">
@@ -112,11 +139,15 @@ export const TrendingAds = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {products.map((product, index) => (
-            <ProductCard key={index} {...product} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="text-center py-12">Loading...</div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {products.map((product, index) => (
+              <ProductCard key={product.id || index} {...product} />
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

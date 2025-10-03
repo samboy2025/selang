@@ -2,6 +2,7 @@ import { Header } from "@/components/Header";
 import { HeroSearch } from "@/components/HeroSearch";
 import { CategoryGrid } from "@/components/CategoryGrid";
 import { TrendingAds } from "@/components/TrendingAds";
+import { AISidebar } from "@/components/AISidebar";
 
 const Index = () => {
   return (
@@ -10,6 +11,7 @@ const Index = () => {
       <HeroSearch />
       <CategoryGrid />
       <TrendingAds />
+      <AISidebar />
     </div>
   );
 };

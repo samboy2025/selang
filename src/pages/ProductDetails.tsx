@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
+import { AISidebar } from "@/components/AISidebar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Phone, User, MessageCircle, ArrowLeft } from "lucide-react";
@@ -108,9 +109,10 @@ const ProductDetails = () => {
   };
 
   if (loading) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Header />
+  return (
+    <div className="min-h-screen bg-background">
+      <Header />
+      <AISidebar />
         <div className="flex items-center justify-center min-h-[60vh]">
           <p>Loading...</p>
         </div>
@@ -121,6 +123,7 @@ const ProductDetails = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      <AISidebar />
       <div className="container mx-auto px-4 py-8">
         <Button
           variant="ghost"
